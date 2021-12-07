@@ -35,6 +35,7 @@ namespace DNWS
       foreach (KeyValuePair<String, int> entry in statDictionary)
       {
         sb.Append(entry.Key + ": " + entry.Value.ToString() + "<br />");
+        
       }
       sb.Append("</body></html>");
       response = new HTTPResponse(200);

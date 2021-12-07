@@ -85,11 +85,11 @@ namespace DNWS
         protected Program _parent;
         protected Dictionary<string, PluginInfo> plugins;
 
-        /// <summary>
-        /// Constructor, set the client socket and parent ref, also init stat hash
-        /// </summary>
-        /// <param name="client">Client socket</param>
-        /// <param name="parent">Parent ref</param>
+        // / <summary>
+        // / Constructor, set the client socket and parent ref, also init stat hash
+        // / </summary>
+        // / <param name="client">Client socket</param>
+        // / <param name="parent">Parent ref</param>
         public HTTPProcessor(Socket client, Program parent)
         {
             _client = client;
@@ -242,10 +242,11 @@ namespace DNWS
     /// </summary>
     public class DotNetWebServer
     {
-        protected int _port;
+        public int _port;
+        public int r;
         protected Program _parent;
         protected Socket serverSocket;
-        protected Socket clientSocket;
+        public Socket clientSocket;
         private static DotNetWebServer _instance = null;
         protected int id;
 
@@ -254,6 +255,11 @@ namespace DNWS
             _parent = parent;
             id = 0;
         }
+        public DotNetWebServer()
+        {
+            r = 1;
+        }
+        
 
         /// <summary>
         /// Singleton here
@@ -287,6 +293,7 @@ namespace DNWS
             serverSocket.Bind(localEndPoint);
             serverSocket.Listen(5);
             _parent.Log("Server started at port " + _port + ".");
+
             while (true)
             {
                 try

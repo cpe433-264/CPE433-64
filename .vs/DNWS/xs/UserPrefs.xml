@@ -1,0 +1,24 @@
+﻿<Properties StartupConfiguration="{85E05957-2C70-41EC-B38F-A57B004C7D3B}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="config.json">
+    <Files>
+      <File FileName="config.json" Line="1" Column="1" />
+      <File FileName="DelayPlugin.cs" Line="1" Column="1" />
+      <File FileName="HTTPRequest.cs" Line="1" Column="1" />
+      <File FileName="HTTPResponse.cs" Line="1" Column="1" />
+      <File FileName="index.html" Line="1" Column="1" />
+      <File FileName="IPlugin.cs" Line="1" Column="1" />
+      <File FileName="LICENSE" Line="1" Column="1" />
+      <File FileName="OXPlugin.cs" Line="1" Column="1" />
+      <File FileName="Program.cs" Line="1" Column="1" />
+      <File FileName="README.md" Line="1" Column="1" />
+      <File FileName="StatPlugin.cs" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.DNWS PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
