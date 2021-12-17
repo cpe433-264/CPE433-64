@@ -21,5 +21,12 @@
             "Preprocessing" : "false",
             "Postprocessing" :"false" 
         }
+        {
+            "Path" : "client",
+            "Class" : "DNWS.clientinfo",
+            "Preprocessing" : "true",
+            "Postprocessing" :"false",
+            "Singleton" : "false"
+        }
     ]
 }
