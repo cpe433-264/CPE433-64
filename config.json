@@ -23,10 +23,9 @@
         }
         {
             "Path" : "client",
-            "Class" : "DNWS.clientinfo",
-            "Preprocessing" : "true",
-            "Postprocessing" :"false",
-            "Singleton" : "false"
+            "Class" : "DNWS.DelayPlugin",
+            "Preprocessing" : "false",
+            "Postprocessing" :"false"
         }
     ]
 }
