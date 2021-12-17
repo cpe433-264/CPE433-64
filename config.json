@@ -21,5 +21,11 @@
             "Preprocessing" : "false",
             "Postprocessing" :"false" 
         }
+        {
+            "Path" : "client",
+            "Class" : "DNWS.DelayPlugin",
+            "Preprocessing" : "false",
+            "Postprocessing" :"false"
+        }
     ]
 }
