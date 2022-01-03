@@ -281,13 +281,14 @@ namespace DNWS
         /// </summary>
         public void Start()
         {
+            String threadModel = Program.Configuration["ThreadModel"];
             _port = Convert.ToInt32(Program.Configuration["Port"]);
             IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, _port);
             // Create listening socket, queue size is 5 now.
             serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             serverSocket.Bind(localEndPoint);
             serverSocket.Listen(100);
-            _parent.Log("Server using "+ Program.Configuration["ThreadModel"] +" Thread");
+            _parent.Log("Server using "+ threadModel +" Thread");
             _parent.Log("Server started at port " + _port + ".");
             int count = 0; //count number of connection
             while (true)
@@ -301,10 +302,10 @@ namespace DNWS
                    // _parent.Log("Client accepted:" + clientSocket.RemoteEndPoint.ToString());
                     _parent.Log("Connection : #" + count + " | Client accepted:" + clientSocket.RemoteEndPoint.ToString());
                     HTTPProcessor hp = new HTTPProcessor(clientSocket, _parent);
-                    if(Program.Configuration["ThreadModel"] == "Single"){
+                    if(threadModel is "Single"){
                         hp.Process();
                      }
-                    else if(Program.Configuration["ThreadModel"] == "Multi"){
+                    else if(threadModel is "Multi"){
                         Thread thread = new Thread(new ThreadStart(hp.Process));
                         thread.Start(); // start hp.process on thread
                     }
