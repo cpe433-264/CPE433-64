@@ -243,6 +243,7 @@ namespace DNWS
     public class DotNetWebServer
     {
         public int _port;
+        public string _Model;
         public int r;
         protected Program _parent;
         protected Socket serverSocket;
@@ -287,12 +288,14 @@ namespace DNWS
         public void Start()
         {
             _port = Convert.ToInt32(Program.Configuration["Port"]);
+            _Model = Convert.ToString(Program.Configuration["ThreadModel"]);
             IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, _port);
             // Create listening socket, queue size is 5 now.
             serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             serverSocket.Bind(localEndPoint);
             serverSocket.Listen(5);
             _parent.Log("Server started at port " + _port + ".");
+            _parent.Log("Thread model is " + _Model + ".");
 
             while (true)
             {
@@ -303,7 +306,9 @@ namespace DNWS
                     // Get one, show some info
                     _parent.Log("Client accepted:" + clientSocket.RemoteEndPoint.ToString());
                     HTTPProcessor hp = new HTTPProcessor(clientSocket, _parent);
-                    hp.Process();
+                    Thread f = new Thread(new ThreadStart(hp.Process));
+                    f.Start();
+                    
                 }
                 catch (Exception ex)
                 {
