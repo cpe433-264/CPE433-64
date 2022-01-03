@@ -274,6 +274,7 @@ namespace DNWS
             TaskInfo ti = stateinfo as TaskInfo;
             ti.hp.Process();
         }
+        
 
         /// <summary>
         /// Server starting point
@@ -286,6 +287,7 @@ namespace DNWS
             serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             serverSocket.Bind(localEndPoint);
             serverSocket.Listen(100);
+            _parent.Log("Server using "+ Program.Configuration["ThreadModel"] +" Thread");
             _parent.Log("Server started at port " + _port + ".");
             int count = 0; //count number of connection
             while (true)
@@ -299,9 +301,14 @@ namespace DNWS
                    // _parent.Log("Client accepted:" + clientSocket.RemoteEndPoint.ToString());
                     _parent.Log("Connection : #" + count + " | Client accepted:" + clientSocket.RemoteEndPoint.ToString());
                     HTTPProcessor hp = new HTTPProcessor(clientSocket, _parent);
-                 //   hp.Process();
-                 Thread thread = new Thread(new ThreadStart(hp.Process));
-                 thread.Start(); // start hp.process on thread
+                    if(Program.Configuration["ThreadModel"] == "Single"){
+                        hp.Process();
+                     }
+                    else if(Program.Configuration["ThreadModel"] == "Multi"){
+                        Thread thread = new Thread(new ThreadStart(hp.Process));
+                        thread.Start(); // start hp.process on thread
+                    }
+                
                 }
                 catch (Exception ex)
                 {
