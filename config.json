@@ -1,6 +1,7 @@
 ﻿{
     "DocumentRoot": ".",
     "Port": "8080",
+    "_Threadallow" : "single | multi",
     "Thread" : "multi",
     "Plugins" : [
         {
