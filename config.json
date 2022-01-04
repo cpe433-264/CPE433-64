@@ -1,6 +1,8 @@
 ﻿{
     "DocumentRoot": ".",
     "Port": "8080",
+    "_comment": "multi or single thread",
+    "Thread": "multi",
     "Plugins" : [
         {
             "Path" : "stat",
