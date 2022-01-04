@@ -280,13 +280,15 @@ namespace DNWS
         /// </summary>
         public void Start()
         {
+            string SelectThread = Program.Configuration["Thread"];
             _port = Convert.ToInt32(Program.Configuration["Port"]);
             IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, _port);
             // Create listening socket, queue size is 5 now.
             serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             serverSocket.Bind(localEndPoint);
-            serverSocket.Listen(5);
+            serverSocket.Listen(100);
             _parent.Log("Server started at port " + _port + ".");
+            _parent.Log("Thread model is " + SelectThread + "thread.");
             while (true)
             {
                 try
@@ -296,7 +298,17 @@ namespace DNWS
                     // Get one, show some info
                     _parent.Log("Client accepted:" + clientSocket.RemoteEndPoint.ToString());
                     HTTPProcessor hp = new HTTPProcessor(clientSocket, _parent);
-                    hp.Process();
+                    // For single thread
+                    if(SelectThread == "single")
+                    {
+                    hp.Process(); 
+                    }
+                    // For multi thread
+                    else if(SelectThread == "multi")
+                    {
+                    Thread thread1 = new Thread(new ThreadStart(hp.Process));
+                    thread1.Start();
+                    }
                 }
                 catch (Exception ex)
                 {
