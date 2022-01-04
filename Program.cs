@@ -32,10 +32,16 @@ namespace DNWS
             ws.Start();
         }
 
-        static void Main(string[] args)
+        static static void Main(string[] args)
         {
             Program p = new Program();
             p.Start();
+            int n = 8; // Number of threads
+            for (int i = 0; i < n; i++) {
+                MultithreadingDemo object
+                    = new MultithreadingDemo();
+                object.start();
+            }
         }
     }
 
@@ -274,6 +280,7 @@ namespace DNWS
             TaskInfo ti = stateinfo as TaskInfo;
             ti.hp.Process();
         }
+        
 
         /// <summary>
         /// Server starting point
@@ -302,6 +309,22 @@ namespace DNWS
                 {
                     _parent.Log("Server starting error: " + ex.Message + "\n" + ex.StackTrace);
                 }
+            }
+        }
+        
+    }
+    class MultithreadingDemo extends DotNetWebServer {
+        public void run()
+        {
+            try {
+                // Displaying the thread that is running
+                System.out.println(
+                    "Thread " + Thread.currentThread().getId()
+                    + " is running");
+            }
+            catch (Exception e) {
+                // Throwing an exception
+                System.out.println("Exception is caught");
             }
         }
     }
