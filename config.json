@@ -1,6 +1,8 @@
 ﻿{
     "DocumentRoot": ".",
     "Port": "8080",
+    "ThreadList": "Single | Multi",
+    "ThreadModel": "Multi",
     "Plugins" : [
         {
             "Path" : "stat",
