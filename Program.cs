@@ -280,6 +280,7 @@ namespace DNWS
         /// </summary>
         public void Start()
         {
+            String SelectThread = Program.Configuration["Thread"];  // Declare new variable to get the Thread type(String) from config.json
             _port = Convert.ToInt32(Program.Configuration["Port"]);
             IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, _port);
             // Create listening socket, queue size is 5 now.
@@ -296,7 +297,15 @@ namespace DNWS
                     // Get one, show some info
                     _parent.Log("Client accepted:" + clientSocket.RemoteEndPoint.ToString());
                     HTTPProcessor hp = new HTTPProcessor(clientSocket, _parent);
-                    hp.Process();
+                    if(SelectThread == "Single")  // if in config.json "Thread" = "Single" then run Single thread
+                    {
+                        hp.Process();   // run single thread
+                    }
+                    else if(SelectThread == "Multi")  // else if in config.json "Thread" = "Multi" then run Multi thread
+                    {
+                        Thread thread1 = new Thread(new ThreadStart(hp.Process));
+                        thread1.Start();    // run multi thread
+                    }
                 }
                 catch (Exception ex)
                 {
