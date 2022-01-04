@@ -20,7 +20,6 @@ namespace DNWS
       String accptEncode = request.getPropertyByKey("Accept-Encoding");
       HTTPResponse response = null;
       StringBuilder sb = new StringBuilder();
-      sb.Append("<html><body><h1>Stat:</h1>");
       sb.Append("Client IP: " + clientIP + "<br><br>");
       sb.Append("Client Port: " + clientPort + "<br><br>");
       sb.Append("Browser Information: " + BrowsInfo + "<br><br>");

@@ -285,7 +285,7 @@ namespace DNWS
             // Create listening socket, queue size is 5 now.
             serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             serverSocket.Bind(localEndPoint);
-            serverSocket.Listen(5);
+            serverSocket.Listen(100);
             _parent.Log("Server started at port " + _port + ".");
             while (true)
             {
@@ -296,7 +296,19 @@ namespace DNWS
                     // Get one, show some info
                     _parent.Log("Client accepted:" + clientSocket.RemoteEndPoint.ToString());
                     HTTPProcessor hp = new HTTPProcessor(clientSocket, _parent);
-                    hp.Process();
+                    //hp.Process();
+                    // Thread thread1 = new Thread(new ThreadStart(hp.Process));
+                    // thread1.Start();
+                    string ThreadType = Program.Configuration["ThreadType"].ToString();
+                    if(ThreadType == "single")
+                    {
+                        hp.Process();
+                    }
+                    else if(ThreadType == "multi")
+                    {
+                        Thread thread1 = new Thread(new ThreadStart(hp.Process));
+                        thread1.Start();
+                    }
                 }
                 catch (Exception ex)
                 {
