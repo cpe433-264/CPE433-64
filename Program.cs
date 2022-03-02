@@ -301,8 +301,8 @@ namespace DNWS
                     //hp.Process(); //move to use when thread start
 
                     // Implement Threads
-                    Thread t = new Thread(new ThreadStart(hp.Process)); //use hp.Process when thread start
-                    t.Start();
+                    //Thread t = new Thread(new ThreadStart(hp.Process)); //use hp.Process when thread start
+                    //t.Start();
 
                 }
                 catch (Exception ex)
