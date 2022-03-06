@@ -28,6 +28,12 @@
             "Class" : "DNWS.clientinfo",
             "Preprocessing" : "false",
             "Postprocessing" : "false"
+        },
+        {
+            "Path" : "pm25",
+            "Class" : "DNWS.PM25Plugin",
+            "Preprocessing" : "false",
+            "Postprocessing" :"false" 
         }
     ]
 }
