@@ -22,10 +22,11 @@
             "Postprocessing" :"false" 
         }
         {
-            "Path" : "client",
-            "Class" : "DNWS.DelayPlugin",
-            "Preprocessing" : "false",
-            "Postprocessing" :"false"
+            "Path" : "clientinfo",
+            "Class" : "DNWS.ClientInfoPlugin",
+            "Preprocessing" : "true",
+            "Postprocessing" : "false",
+            "Singleton" : "fasle"
         }
     ]
 }
