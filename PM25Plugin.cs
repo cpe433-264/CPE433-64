@@ -60,8 +60,8 @@ namespace DNWS
             // sb.Append("</body></html>");
             response = new HTTPResponse(200);
             // response.body = Encoding.UTF8.GetBytes(sb.ToString());
-            String PM25_reading = JsonSerializer.Serialize(pm25reading);
-            response.body = Encoding.UTF8.GetBytes(PM25_reading);
+            String PM25_reader = JsonSerializer.Serialize(pm25reading);     //convert to .json format
+            response.body = Encoding.UTF8.GetBytes(PM25_reader);
             return response;
         }
 
