@@ -1,6 +1,9 @@
 ﻿{
     "DocumentRoot": ".",
     "Port": "8080",
+    "ThreadPoolSize" : "100",
+    "AllowThreadModel" : "Multi|Single",
+    "ThreadModel" : "Multi",
     "Plugins" : [
         {
             "Path" : "stat",
@@ -20,6 +23,19 @@
             "Class" : "DNWS.DelayPlugin",
             "Preprocessing" : "false",
             "Postprocessing" :"false" 
+        },
+        {
+            "Path" : "clientinfo",
+            "Class" : "DNWS.ClientInfo",
+            "Preprocessing" : "true",
+            "Postprocessing" :"false" ,
+            "Singleton" : "false"
+        },
+        {
+            "Path" : "pm25",
+            "Class" : "DNWS.PM25Plugin",
+            "Preprocessing" : "false",
+            "Postprocessing" :"false"
         }
     ]
 }

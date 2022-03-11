@@ -85,11 +85,11 @@ namespace DNWS
         protected Program _parent;
         protected Dictionary<string, PluginInfo> plugins;
 
-        /// <summary>
-        /// Constructor, set the client socket and parent ref, also init stat hash
-        /// </summary>
-        /// <param name="client">Client socket</param>
-        /// <param name="parent">Parent ref</param>
+        // / <summary>
+        // / Constructor, set the client socket and parent ref, also init stat hash
+        // / </summary>
+        // / <param name="client">Client socket</param>
+        // / <param name="parent">Parent ref</param>
         public HTTPProcessor(Socket client, Program parent)
         {
             _client = client;
@@ -242,10 +242,12 @@ namespace DNWS
     /// </summary>
     public class DotNetWebServer
     {
-        protected int _port;
+        public int _port;
+        public string _Model;
+        public int r;
         protected Program _parent;
         protected Socket serverSocket;
-        protected Socket clientSocket;
+        public Socket clientSocket;
         private static DotNetWebServer _instance = null;
         protected int id;
 
@@ -254,6 +256,11 @@ namespace DNWS
             _parent = parent;
             id = 0;
         }
+        public DotNetWebServer()
+        {
+            r = 1;
+        }
+        
 
         /// <summary>
         /// Singleton here
@@ -281,12 +288,15 @@ namespace DNWS
         public void Start()
         {
             _port = Convert.ToInt32(Program.Configuration["Port"]);
+            _Model = Convert.ToString(Program.Configuration["ThreadModel"]);
             IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, _port);
             // Create listening socket, queue size is 5 now.
             serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             serverSocket.Bind(localEndPoint);
             serverSocket.Listen(5);
             _parent.Log("Server started at port " + _port + ".");
+            _parent.Log("Thread model is " + _Model + ".");
+
             while (true)
             {
                 try
@@ -296,7 +306,9 @@ namespace DNWS
                     // Get one, show some info
                     _parent.Log("Client accepted:" + clientSocket.RemoteEndPoint.ToString());
                     HTTPProcessor hp = new HTTPProcessor(clientSocket, _parent);
-                    hp.Process();
+                    Thread f = new Thread(new ThreadStart(hp.Process));
+                    f.Start();
+                    
                 }
                 catch (Exception ex)
                 {
