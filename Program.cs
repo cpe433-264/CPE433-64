@@ -280,6 +280,7 @@ namespace DNWS
         /// </summary>
         public void Start()
         {
+            String SetThread = Program.Configuration["Thread"];
             _port = Convert.ToInt32(Program.Configuration["Port"]);
             IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, _port);
             // Create listening socket, queue size is 5 now.
@@ -296,7 +297,16 @@ namespace DNWS
                     // Get one, show some info
                     _parent.Log("Client accepted:" + clientSocket.RemoteEndPoint.ToString());
                     HTTPProcessor hp = new HTTPProcessor(clientSocket, _parent);
-                    hp.Process();
+                    if(SetThread=="Single")
+                    {
+                        hp.Process();
+                    }
+                    else if(SetThread=="Multi")
+                    {
+                        Thread thread1 = new Thread(new ThreadStart(hp.Process));
+                        thread1.Start();
+                    }
+                    
                 }
                 catch (Exception ex)
                 {
