@@ -296,7 +296,16 @@ namespace DNWS
                     // Get one, show some info
                     _parent.Log("Client accepted:" + clientSocket.RemoteEndPoint.ToString());
                     HTTPProcessor hp = new HTTPProcessor(clientSocket, _parent);
-                    hp.Process();
+                    string thread = Program.Configuration["Thread"].ToString();
+                    if(thread == "single")
+                    {
+                        hp.Process();
+                    }
+                    else if(thread == "multi")
+                    {
+                        Thread thread1 = new Thread(new ThreadStart(hp.Process));
+                        thread1.Start();
+                    }
                 }
                 catch (Exception ex)
                 {
