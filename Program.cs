@@ -188,9 +188,9 @@ namespace DNWS
                 cInformation.body = requestStr;// the whole request GET body
                 cInformation.ipAddress = _client.RemoteEndPoint.ToString().Split(':')[0];//using split ':' string to get the ip address at index 0 of an array eg. 127.0.0.1:60015 => ["127.0.0.1","60015"]
                 cInformation.port = _client.RemoteEndPoint.ToString().Split(':')[1];//using split ':' string to get the port at index 1 of an array eg. 127.0.0.1:60015 => ["127.0.0.1","60015"]
-                cInformation.browserInformation = requestStr.Substring(requestStr.IndexOf("User-Agent:"),requestStr.IndexOf("Accept:")-requestStr.IndexOf("User-Agent:")-1).Split(':')[1];// get the substring from the text 'User-Agent:' to the text 'Accept:' which is a User-Agent data 
-                cInformation.acceptLanguage = requestStr.Substring(requestStr.IndexOf("Accept-Language:"),requestStr.IndexOf("Cookie:")-requestStr.IndexOf("Accept-Language:")-1).Split(':')[1];// get the substring from the text 'Accept-Language:' to the text 'Cookie:' which is a Accept-Language data 
-                cInformation.acceptEncoding = requestStr.Substring(requestStr.IndexOf("Accept-Encoding:"),requestStr.IndexOf("Accept-Language:")-requestStr.IndexOf("Accept-Encoding:")-1).Split(':')[1];// get the substring from the text 'Accept-Encoding:' to the text 'Accept-Language:' which is a Accept-Encoding data
+                cInformation.browserInformation = request.getPropertyByKey("User-Agent");// using get propertyByKey is easier than get the substring
+                cInformation.acceptLanguage = request.getPropertyByKey("Accept-Language");// using get propertyByKey is easier than get the substring
+                cInformation.acceptEncoding = request.getPropertyByKey("Accept-Encoding");// using get propertyByKey is easier than get the substring
             }
             catch (Exception)
             {
