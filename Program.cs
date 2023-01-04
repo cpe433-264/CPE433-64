@@ -7,7 +7,6 @@ using System.IO;
 using System.Threading;
 using Microsoft.Extensions.Configuration;
 
-
 namespace DNWS
 {
     // Main class
@@ -55,28 +54,28 @@ namespace DNWS
 
             public string path
             {
-                get { return _path;}
-                set {_path = value;}
+                get { return _path; }
+                set { _path = value; }
             }
             public string type
             {
-                get { return _type;}
-                set {_type = value;}
+                get { return _type; }
+                set { _type = value; }
             }
             public bool preprocessing
             {
-                get { return _preprocessing;}
-                set {_preprocessing = value;}
+                get { return _preprocessing; }
+                set { _preprocessing = value; }
             }
             public bool postprocessing
             {
-                get { return _postprocessing;}
-                set {_postprocessing = value;}
+                get { return _postprocessing; }
+                set { _postprocessing = value; }
             }
             public IPlugin reference
             {
-                get { return _reference;}
-                set {_reference = value;}
+                get { return _reference; }
+                set { _reference = value; }
             }
         }
         // Get config from config manager, e.g., document root and port
@@ -97,13 +96,14 @@ namespace DNWS
             plugins = new Dictionary<string, PluginInfo>();
             // load plugins
             var sections = Program.Configuration.GetSection("Plugins").GetChildren();
-            foreach(ConfigurationSection section in sections) {
+            foreach (ConfigurationSection section in sections)
+            {
                 PluginInfo pi = new PluginInfo();
                 pi.path = section["Path"];
                 pi.type = section["Class"];
                 pi.preprocessing = section["Preprocessing"].ToLower().Equals("true");
                 pi.postprocessing = section["Postprocessing"].ToLower().Equals("true");
-                pi.reference = (IPlugin) Activator.CreateInstance(Type.GetType(pi.type));
+                pi.reference = (IPlugin)Activator.CreateInstance(Type.GetType(pi.type));
                 plugins[section["Path"]] = pi;
             }
         }
@@ -113,7 +113,17 @@ namespace DNWS
         /// </summary>
         /// <param name="path">Absolute path to the file</param>
         /// <returns></returns>
-        protected HTTPResponse getFile(String path)
+        protected string clientInformationProcessing(HTTPResponse response, string path, ClientInformation clientInformation)// process the client information into html
+        {
+            string html = System.IO.File.ReadAllText(path);//the whole text from html
+            html = html.Replace("{clientIP}", clientInformation.ipAddress);// get clientIpaddress from the ClientInformation object
+            html = html.Replace("{clientPort}",clientInformation.port);// get clientPort from the ClientInformation object
+            html = html.Replace("{browserInformation}",clientInformation.browserInformation);// get browserInformation from the ClientInformation object
+            html = html.Replace("{acceptLanguage}",clientInformation.acceptLanguage);// get acceptLanguage from the ClientInformation object
+            html = html.Replace("{acceptEncoding}",clientInformation.acceptEncoding);// get acceptEncoding from the ClientInformation object
+            return html;//return a new html
+        }
+        protected HTTPResponse getFile(String path, ClientInformation clientInformation)
         {
             HTTPResponse response = null;
 
@@ -133,7 +143,7 @@ namespace DNWS
             {
                 response = new HTTPResponse(200);
                 response.type = fileType;
-                response.body = System.IO.File.ReadAllBytes(path);
+                response.body = Encoding.UTF8.GetBytes(clientInformationProcessing(response, path, clientInformation));
             }
             catch (FileNotFoundException ex)
             {
@@ -171,48 +181,73 @@ namespace DNWS
             request = new HTTPRequest(requestStr);
             request.addProperty("RemoteEndPoint", _client.RemoteEndPoint.ToString());
 
+            //Create clientInformation
+            ClientInformation cInformation = new ClientInformation();
+            try//prevent the error for the server
+            {
+                cInformation.body = requestStr;// the whole request GET body
+                cInformation.ipAddress = _client.RemoteEndPoint.ToString().Split(':')[0];//using split ':' string to get the ip address at index 0 of an array eg. 127.0.0.1:60015 => ["127.0.0.1","60015"]
+                cInformation.port = _client.RemoteEndPoint.ToString().Split(':')[1];//using split ':' string to get the port at index 1 of an array eg. 127.0.0.1:60015 => ["127.0.0.1","60015"]
+                cInformation.browserInformation = requestStr.Substring(requestStr.IndexOf("User-Agent:"),requestStr.IndexOf("Accept:")-requestStr.IndexOf("User-Agent:")-1).Split(':')[1];// get the substring from the text 'User-Agent:' to the text 'Accept:' which is a User-Agent data 
+                cInformation.acceptLanguage = requestStr.Substring(requestStr.IndexOf("Accept-Language:"),requestStr.IndexOf("Cookie:")-requestStr.IndexOf("Accept-Language:")-1).Split(':')[1];// get the substring from the text 'Accept-Language:' to the text 'Cookie:' which is a Accept-Language data 
+                cInformation.acceptEncoding = requestStr.Substring(requestStr.IndexOf("Accept-Encoding:"),requestStr.IndexOf("Accept-Language:")-requestStr.IndexOf("Accept-Encoding:")-1).Split(':')[1];// get the substring from the text 'Accept-Encoding:' to the text 'Accept-Language:' which is a Accept-Encoding data
+            }
+            catch (Exception)
+            {
+                //nothing to do here
+            }
+
             // We can handle only GET now
-            if(request.Status != 200) {
+            if (request.Status != 200)
+            {
                 response = new HTTPResponse(request.Status);
             }
             else
             {
                 bool processed = false;
                 // pre processing
-                foreach(KeyValuePair<string, PluginInfo> plugininfo in plugins) {
-                    if(plugininfo.Value.preprocessing) {
+                foreach (KeyValuePair<string, PluginInfo> plugininfo in plugins)
+                {
+                    if (plugininfo.Value.preprocessing)
+                    {
                         plugininfo.Value.reference.PreProcessing(request);
                     }
                 }
                 // plugins
-                foreach(KeyValuePair<string, PluginInfo> plugininfo in plugins) {
-                    if(request.Filename.StartsWith(plugininfo.Key)) {
+                foreach (KeyValuePair<string, PluginInfo> plugininfo in plugins)
+                {
+                    if (request.Filename.StartsWith(plugininfo.Key))
+                    {
                         response = plugininfo.Value.reference.GetResponse(request);
                         processed = true;
                     }
                 }
                 // local file
-                if(!processed) {
+                if (!processed)
+                {
                     if (request.Filename.Equals(""))
                     {
-                        response = getFile(ROOT + "/index.html");
+                        response = getFile(ROOT + "/index.html", cInformation);//pass clientInformation
                     }
                     else
                     {
-                        response = getFile(ROOT + "/" + request.Filename);
+                        response = getFile(ROOT + "/" + request.Filename, cInformation);//pass clientInformation
                     }
                 }
                 // post processing pipe
-                foreach(KeyValuePair<string, PluginInfo> plugininfo in plugins) {
-                    if(plugininfo.Value.postprocessing) {
+                foreach (KeyValuePair<string, PluginInfo> plugininfo in plugins)
+                {
+                    if (plugininfo.Value.postprocessing)
+                    {
                         response = plugininfo.Value.reference.PostProcessing(response);
                     }
                 }
             }
             // Generate response
             ns.Write(Encoding.UTF8.GetBytes(response.header), 0, response.header.Length);
-            if(response.body != null) {
-              ns.Write(response.body, 0, response.body.Length);
+            if (response.body != null)
+            {
+                ns.Write(response.body, 0, response.body.Length);
             }
 
             // Shuting down
@@ -222,14 +257,27 @@ namespace DNWS
 
         }
     }
+    public class ClientInformation//The ClientInformation to provided the information for the client socket connecting to the web browser
+    {
+        public string ipAddress, port, browserInformation, acceptLanguage, acceptEncoding,body;//Fields
+        public ClientInformation()//Initialize all the string fields 
+        {
+            this.ipAddress = "";
+            this.port = "";
+            this.browserInformation = "";
+            this.acceptLanguage = "";
+            this.acceptEncoding = "";
+            this.body = "";
+        }
+    }
 
     public class TaskInfo
     {
         private HTTPProcessor _hp;
-        public HTTPProcessor hp 
-        { 
-            get {return _hp;}
-            set {_hp = value;}
+        public HTTPProcessor hp
+        {
+            get { return _hp; }
+            set { _hp = value; }
         }
         public TaskInfo(HTTPProcessor hp)
         {
