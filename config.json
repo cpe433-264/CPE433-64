@@ -22,7 +22,7 @@
             "Postprocessing" :"false" 
         },
         {
-            "Path" : "client",
+            "Path" : "clientinfo",
             "Class" : "DNWS.Client",
             "Preprocessing" : "false",
             "Postprocessing" :"false" 
