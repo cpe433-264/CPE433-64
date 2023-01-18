@@ -1,0 +1,4 @@
+C:\Users\ASUS\OneDrive\เดสก์ท็อป\Network Programming\obj\Debug\netcoreapp3.1\Network Programming.csprojAssemblyReference.cache
+C:\Users\ASUS\OneDrive\เดสก์ท็อป\Network Programming\obj\Debug\netcoreapp3.1\Network Programming.AssemblyInfoInputs.cache
+C:\Users\ASUS\OneDrive\เดสก์ท็อป\Network Programming\obj\Debug\netcoreapp3.1\Network Programming.AssemblyInfo.cs
+C:\Users\ASUS\OneDrive\เดสก์ท็อป\Network Programming\obj\Debug\netcoreapp3.1\Network Programming.csproj.CoreCompileInputs.cache
