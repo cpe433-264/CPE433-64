@@ -20,6 +20,12 @@
             "Class" : "DNWS.DelayPlugin",
             "Preprocessing" : "false",
             "Postprocessing" :"false" 
+        },
+        {
+            "Path" : "homework",
+            "Class" : "DNWS.Homework",
+            "Preprocessing" : "false",
+            "Postprocessing" :"false" 
         }
     ]
 }
