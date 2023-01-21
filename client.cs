@@ -27,12 +27,13 @@ namespace DNWS
             string userLanguage = request.getPropertyByKey("Accept-Language"); //accept language
             string userEncoding = request.getPropertyByKey("Accept-Encoding"); //accept encode
             string html = "<html><body></body></html>" ; // html for left  line and font
+            
             response.body = Encoding.UTF8.GetBytes("<html><body"+"<div>Client IP: "+ip
-                                                    + "</div><div>Client Port: "+port+ 
-                                                    "</div>"+"<div>Browser Information: "
-                                                    +userAgent+"</div>"+"<div>"+"Accept Language: "
-                                                    +userLanguage+"</div>"+"<div>"+"Accept Encoding: "
-                                                    +userEncoding+"</body></html>"); 
+                                                    +"</div><br/><br/><div>Client Port: "+port+ 
+                                                    "</div><br/>"+"<div>Browser Information: "
+                                                    +userAgent+"</div><br/>"+"<div>"+"Accept Language: "
+                                                    +userLanguage+"<br/><br/>"+"</div>"+"<div>"+"Accept Encoding: "
+                                                    +userEncoding+"<br/><br/>"+"</body></html>"); 
             return response;
         }
         public HTTPResponse PostProcessing(HTTPResponse response)
