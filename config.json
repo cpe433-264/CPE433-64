@@ -20,6 +20,11 @@
             "Class" : "DNWS.DelayPlugin",
             "Preprocessing" : "false",
             "Postprocessing" :"false" 
-        }
+        },
+        { "Path" : "lab",
+            "Class" : "DNWS.lab",
+            "Preprocessing" : "false",
+            "Postprocessing" :"false" 
+    }
     ]
 }
