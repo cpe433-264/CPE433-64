@@ -20,6 +20,12 @@
             "Class" : "DNWS.DelayPlugin",
             "Preprocessing" : "false",
             "Postprocessing" :"false" 
+        },
+        {
+            "Path" : "hw",
+            "Class" : "DNWS.hw",
+            "Preprocessing" : "false",
+            "Postprocessing" :"false" 
         }
     ]
 }
