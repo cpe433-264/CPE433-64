@@ -20,6 +20,12 @@
             "Class" : "DNWS.DelayPlugin",
             "Preprocessing" : "false",
             "Postprocessing" :"false" 
+        },
+        {
+            "Path" : "clinet",
+            "Class" : "DNWS.Clinet",
+            "Preprocessing" : "false",
+            "Postprocessing" :"false" 
         }
     ]
 }
