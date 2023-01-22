@@ -168,7 +168,7 @@ namespace DNWS
                 requestStr += Encoding.UTF8.GetString(bytes, 0, bytesRead);
             } while (ns.DataAvailable);
 
-            request = new HTTPRequest(requestStr);
+            request = new HTTPRequest(requestStr); //***client request***
             request.addProperty("RemoteEndPoint", _client.RemoteEndPoint.ToString());
 
             // We can handle only GET now
