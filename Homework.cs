@@ -24,7 +24,7 @@ namespace DNWS
       String userAgent = request.getPropertyByKey("User-Agent");
       String userLanguage = request.getPropertyByKey("Accept-Language");
       String userEncoding = request.getPropertyByKey("Accept-Encoding");
-      response.body = Encoding.UTF8.GetBytes("Client Ip: " + ip + "ClientPort: " + port + "Browser Information: " + userAgent + "Lang: " + userLanguage + "Encoding: "+ userEncoding);//credit Paropat yuansee
+      response.body = Encoding.UTF8.GetBytes("Client Ip: " + ip + "ClientPort: " + port + "Browser Information: " + userAgent + "Lang: " + userLanguage + "Encoding: "+ userEncoding);//credit Parigitpat yuansee
       return response;
     }
 
