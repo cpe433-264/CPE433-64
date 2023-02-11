@@ -46,6 +46,7 @@ namespace DNWS
             //   "Accept Encoding : "+userEncoding);
             response.body = Encoding.UTF8.GetBytes("Client IP : "+ip+"</br>"+"Client Port: "+port+"</br>"+"Browser Information : "+userAgent+"</br>"+"Accept Language : "+userLanguage+"</br>"+"Accept Encoding : "+userEncoding);
 
+    
             return response;
         }
         public HTTPResponse PostProcessing(HTTPResponse response)
