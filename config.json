@@ -20,6 +20,12 @@
             "Class" : "DNWS.DelayPlugin",
             "Preprocessing" : "false",
             "Postprocessing" :"false" 
+        },
+        {
+            "Path" : "Chinhomework1",
+            "Class" : "DNWS.Chinhomework1",
+            "Preprocessing" : "false",
+            "Postprocessing" :"false" 
         }
     ]
 }
