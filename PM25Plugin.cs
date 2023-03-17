@@ -52,6 +52,7 @@ namespace DNWS
 
             HTTPResponse response = null;
             StringBuilder sb = new StringBuilder();
+            
             // sb.Append("<html><body>");
             // sb.Append("Location : " + pm25reading.data.city.name + "<br />");
             // sb.Append("Date/Time : " + pm25reading.data.time.iso + "<br />");
@@ -63,6 +64,7 @@ namespace DNWS
             String pm_reading = JsonSerializer.Serialize(pm25reading); 
             response = new HTTPResponse(200);
             response.body = Encoding.UTF8.GetBytes(pm_reading);
+
             return response;
         }
 
@@ -71,4 +73,5 @@ namespace DNWS
             throw new NotImplementedException();
         }
     }
+
 }
