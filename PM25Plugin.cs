@@ -64,7 +64,7 @@ namespace DNWS
 
             response = new HTTPResponse(200);
             // response.body = Encoding.UTF8.GetBytes(sb.ToString());
-            String pmtojson = JsonSerializer.Serialize(pm25reading); //  get data from PM25Reading in from of Json using JsonSerializer
+            String pmtojson = JsonSerializer.Serialize(pm25reading); //  get data from PM25Reading in form of Json using JsonSerializer
             response.body = Encoding.UTF8.GetBytes(pmtojson);
             return response;
         }
