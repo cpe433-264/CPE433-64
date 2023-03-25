@@ -168,7 +168,7 @@ namespace DNWS
                 requestStr += Encoding.UTF8.GetString(bytes, 0, bytesRead);
             } while (ns.DataAvailable);
 
-            request = new HTTPRequest(requestStr); // client request 
+            request = new HTTPRequest(requestStr);
             request.addProperty("RemoteEndPoint", _client.RemoteEndPoint.ToString());
 
             // We can handle only GET now
@@ -193,7 +193,7 @@ namespace DNWS
                 }
                 // local file
                 if(!processed) {
-                    if (request.Filename.Equals("")) // no path
+                    if (request.Filename.Equals(""))
                     {
                         response = getFile(ROOT + "/index.html");
                     }
