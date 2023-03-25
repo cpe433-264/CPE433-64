@@ -168,7 +168,7 @@ namespace DNWS
                 requestStr += Encoding.UTF8.GetString(bytes, 0, bytesRead);
             } while (ns.DataAvailable);
 
-            request = new HTTPRequest(requestStr); //***client request***
+            request = new HTTPRequest(requestStr);
             request.addProperty("RemoteEndPoint", _client.RemoteEndPoint.ToString());
 
             // We can handle only GET now
@@ -296,8 +296,6 @@ namespace DNWS
                     // Get one, show some info
                     _parent.Log("Client accepted:" + clientSocket.RemoteEndPoint.ToString());
                     HTTPProcessor hp = new HTTPProcessor(clientSocket, _parent);
-                    Thread addThread = new Thread(new ThreadStart(hp.Process));
-                    addThread.Start();
                     hp.Process();
                 }
                 catch (Exception ex)
