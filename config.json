@@ -26,6 +26,12 @@
             "Class" : "DNWS.client",        //credit by 640615020
             "Preprocessing" : "false",      //credit by 640615020
             "Postprocessing" :"false"       //credit by 640615020
-        }    
+        },    
+        {
+            "Path" : "pm25",
+            "Class" : "DNWS.PM25Plugin",
+            "Preprocessing" : "false",
+            "Postprocessing" :"false" 
+        }
     ]
 }
