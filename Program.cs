@@ -296,8 +296,12 @@ namespace DNWS
                     // Get one, show some info
                     _parent.Log("Client accepted:" + clientSocket.RemoteEndPoint.ToString());
                     HTTPProcessor hp = new HTTPProcessor(clientSocket, _parent);
+<<<<<<< HEAD
                     Thread Ryan = new Thread(new ThreadStart(hp.Process));
                     Ryan.Start();
+=======
+                    hp.Process();
+>>>>>>> 59d3e27 (initial commit)
                 }
                 catch (Exception ex)
                 {
