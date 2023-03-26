@@ -1,4 +1,4 @@
-﻿{
+{
     "DocumentRoot": ".",
     "Port": "8080",
     "Plugins" : [
@@ -21,19 +21,11 @@
             "Preprocessing" : "false",
             "Postprocessing" :"false" 
         },
-<<<<<<< HEAD
-        { "Path" : "lab",
-            "Class" : "DNWS.lab",
-            "Preprocessing" : "false",
-            "Postprocessing" :"false" 
-    }
-=======
         {
             "Path" : "pm25",
             "Class" : "DNWS.PM25Plugin",
             "Preprocessing" : "false",
             "Postprocessing" :"false" 
         }
->>>>>>> 59d3e27 (initial commit)
     ]
 }
