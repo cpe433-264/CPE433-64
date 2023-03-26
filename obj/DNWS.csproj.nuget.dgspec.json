@@ -1,0 +1,93 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\111 Saw Folder\\Work CMU\\2\\net prog\\CPE433-64\\DNWS.csproj": {}
+  },
+  "projects": {
+    "D:\\111 Saw Folder\\Work CMU\\2\\net prog\\CPE433-64\\DNWS.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\111 Saw Folder\\Work CMU\\2\\net prog\\CPE433-64\\DNWS.csproj",
+        "projectName": "DNWS",
+        "projectPath": "D:\\111 Saw Folder\\Work CMU\\2\\net prog\\CPE433-64\\DNWS.csproj",
+        "packagesPath": "C:\\Users\\MSI GL62m\\.nuget\\packages\\",
+        "outputPath": "D:\\111 Saw Folder\\Work CMU\\2\\net prog\\CPE433-64\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\MSI GL62m\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "System.Text.Json": {
+              "target": "Package",
+              "version": "[7.0.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.13, 6.0.13]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[6.0.13, 6.0.13]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.13, 6.0.13]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[6.0.13, 6.0.13]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
