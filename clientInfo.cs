@@ -4,10 +4,10 @@ using System.Text;
 
 namespace DNWS
 {
-  class StatPlugin : IPlugin
+  class clientInfo : IPlugin
   {
     protected static Dictionary<String, int> statDictionary = null;
-    public StatPlugin()
+    public clientInfo()
     {
       if (statDictionary == null)
       {
@@ -31,11 +31,21 @@ namespace DNWS
     {
       HTTPResponse response = null;
       StringBuilder sb = new StringBuilder();
-      sb.Append("<html><body><h1>Stat:</h1>");
-      foreach (KeyValuePair<String, int> entry in statDictionary)
-      {
-        sb.Append(entry.Key + ": " + entry.Value.ToString() + "<br />");
-      }
+      
+      String[] address = request.getPropertyByKey("RemoteEndPoint").Split( ":");
+      
+      sb.Append("<html><body>");
+
+      sb.Append("Client IP: " + address[0] + "<br><br>");
+
+      sb.Append("Client Port: " + address[1] + "<br><br>");
+      
+      sb.Append("Browser Information: " + request.getPropertyByKey("User-Agent") + "<br><br>");
+      
+      sb.Append("Accept Language: " + request.getPropertyByKey("Accept-Language") + "<br><br>");
+      
+      sb.Append("Accept Encoding: " + request.getPropertyByKey("Accept-Encoding") + "<br><br>");
+      
       sb.Append("</body></html>");
       response = new HTTPResponse(200);
       response.body = Encoding.UTF8.GetBytes(sb.ToString());
